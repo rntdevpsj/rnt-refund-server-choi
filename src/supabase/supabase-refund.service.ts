@@ -99,7 +99,8 @@ export class SupabaseRefundService {
   ): Promise<{ publicUrl: string; storagePath: string }> {
     try {
       if (!base64Data || typeof base64Data !== 'string') {
-        throw new Error('유효하지 않은 PDF base64 데이터입니다.')
+        console.log('유효하지 않은 pdf파일 입니다')
+        return
       }
 
       // 파일 존재 여부만 확인 (실제 URL은 생성하지 않음)

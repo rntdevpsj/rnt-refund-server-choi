@@ -199,6 +199,10 @@ export class RefundEmployService {
         console.log('사업장요율 데이터가 없습니다', year.toString())
         return
       }
+      if (!rateData.PdfData || typeof rateData.PdfData !== 'string') {
+        console.log('유효하지않은 pdf파일입니다')
+        return
+      }
 
       await Promise.all([
         this.supabaseRefund.uploadPdfToStorage(
@@ -321,9 +325,9 @@ export class RefundEmployService {
   }
 
   private getDataCollectionPeriod() {
-    const { endYear } = getRectificationPeriod(false)
+    const { startYear, endYear } = getRectificationPeriod(false)
     return {
-      startYear: endYear - 3,
+      startYear,
       endYear,
     }
   }

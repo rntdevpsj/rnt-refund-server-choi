@@ -55,10 +55,13 @@ export class RefundCalculateService {
   ) {}
   // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // 경정청구 계산함수
-  async calculateRefund(userId: string): Promise<number> {
+  async calculateRefund(userId: string, requestId: string): Promise<number> {
     try {
       // 계산시 필요한 기초 데이터 호출
-      const calculationBaseData = await this.getCalculationData(userId)
+      const calculationBaseData = await this.getCalculationData(
+        userId,
+        requestId,
+      )
       const {
         corpBool,
         refundCompanies,
@@ -210,11 +213,11 @@ export class RefundCalculateService {
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       corpBool
         ? await this.hometaxFillingCorporateService.updateRefundLimit(
-            userId,
+            requestId,
             refundLimit,
           )
         : await this.hometaxFillingPersonService.updateRefundLimit(
-            userId,
+            requestId,
             refundLimit,
           )
 
@@ -253,7 +256,10 @@ export class RefundCalculateService {
   }
 
   // 계산시 필요한 데이터들 호출하는 메서드
-  private async getCalculationData(userId: string): Promise<{
+  private async getCalculationData(
+    userId: string,
+    requestId: string,
+  ): Promise<{
     corpBool: boolean
     refundCompanies: Partial<RefundCompanyModel>[]
     employeeWorkers: Partial<EmployeeWorkerModel>[]
@@ -267,28 +273,30 @@ export class RefundCalculateService {
       ? {
           corpBool: companyType,
           refundCompanies:
-            await this.refundCompanyService.getRefundCompanies(userId),
+            await this.refundCompanyService.getRefundCompanies(requestId),
           employeeWorkers:
-            await this.employeeWorkerService.getEmployeeWorkers(userId),
+            await this.employeeWorkerService.getEmployeeWorkers(requestId),
           socialInsuranceRates:
             await this.socialInsuranceRateService.getSocialInsuranceRates(
-              userId,
+              requestId,
             ),
           hometaxFillingCorporate:
-            await this.hometaxFillingCorporateService.getHometaxFilling(userId),
+            await this.hometaxFillingCorporateService.getHometaxFilling(
+              requestId,
+            ),
         }
       : {
           corpBool: companyType,
           refundCompanies:
-            await this.refundCompanyService.getRefundCompanies(userId),
+            await this.refundCompanyService.getRefundCompanies(requestId),
           employeeWorkers:
-            await this.employeeWorkerService.getEmployeeWorkers(userId),
+            await this.employeeWorkerService.getEmployeeWorkers(requestId),
           socialInsuranceRates:
             await this.socialInsuranceRateService.getSocialInsuranceRates(
-              userId,
+              requestId,
             ),
           hometaxFillingPerson:
-            await this.hometaxFillingPersonService.getHometaxFilling(userId),
+            await this.hometaxFillingPersonService.getHometaxFilling(requestId),
         }
   }
 }

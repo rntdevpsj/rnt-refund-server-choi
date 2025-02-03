@@ -55,10 +55,10 @@ export class EmployeeWorkerService {
     }
   }
 
-  async getEmployeeWorkers(userId: string) {
+  async getEmployeeWorkers(requestId: string) {
     try {
       const employeeWorkers = await this.employeeWorkerRepository.find({
-        where: { userId },
+        where: { userId: requestId },
       })
 
       return employeeWorkers

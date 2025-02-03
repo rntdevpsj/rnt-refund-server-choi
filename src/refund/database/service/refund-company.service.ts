@@ -62,10 +62,10 @@ export class RefundCompanyService {
     }
   }
 
-  async getRefundCompanies(userId: string) {
+  async getRefundCompanies(requestId: string) {
     try {
       const refundCompanies = await this.refundCompanyRepository.find({
-        where: { userId },
+        where: { userId: requestId },
       })
 
       return refundCompanies

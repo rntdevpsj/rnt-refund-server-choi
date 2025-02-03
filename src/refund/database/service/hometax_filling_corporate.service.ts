@@ -11,11 +11,11 @@ export class HometaxFillingCorporateService {
     private readonly hometaxFillingCorporateRepository: Repository<HometaxFillingCorporateModel>,
   ) {}
 
-  async getHometaxFilling(userId: string) {
+  async getHometaxFilling(requestId: string) {
     try {
       const hometaxFilling =
         await this.hometaxFillingCorporateRepository.findOne({
-          where: { userId },
+          where: { userId: requestId },
         })
 
       return hometaxFilling // null을 반환하거나 데이터를 반환
@@ -29,12 +29,12 @@ export class HometaxFillingCorporateService {
   }
 
   async updateRefundLimit(
-    userId: string,
+    requestId: string,
     refundLimitData: Partial<HometaxFillingCorporateModel>,
   ) {
     try {
       const result = await this.hometaxFillingCorporateRepository.update(
-        { userId },
+        { userId: requestId },
         refundLimitData,
       )
 

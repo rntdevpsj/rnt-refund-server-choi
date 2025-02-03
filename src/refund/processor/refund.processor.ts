@@ -83,7 +83,7 @@ export class RefundProcessor extends BaseProcessor {
 
       // 환급금 계산
       const calculationResult =
-        await this.refundCalculateService.calculateRefund(userId)
+        await this.refundCalculateService.calculateRefund(userId, requestId)
 
       const updateData: Partial<RefundUserModel> = {
         userId,

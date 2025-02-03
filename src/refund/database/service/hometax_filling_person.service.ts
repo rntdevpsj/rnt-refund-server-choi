@@ -43,12 +43,12 @@ export class HometaxFillingPersonService {
   }
 
   async updateRefundLimit(
-    userId: string,
+    requestId: string,
     refundLimitData: Partial<HometaxFillingPersonModel>,
   ) {
     try {
       const result = await this.hometaxFillingPersonRepository.update(
-        { userId },
+        { userId: requestId },
         refundLimitData,
       )
 
@@ -66,10 +66,10 @@ export class HometaxFillingPersonService {
     }
   }
 
-  async getHometaxFilling(userId: string) {
+  async getHometaxFilling(requestId: string) {
     try {
       const hometaxFilling = await this.hometaxFillingPersonRepository.findOne({
-        where: { userId },
+        where: { userId: requestId },
       })
 
       return hometaxFilling

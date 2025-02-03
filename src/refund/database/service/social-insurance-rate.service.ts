@@ -59,10 +59,10 @@ export class SocialInsuranceRateService {
     }
   }
 
-  async getSocialInsuranceRates(userId: string) {
+  async getSocialInsuranceRates(requestId: string) {
     try {
       const socialInsuranceRates = await this.insuranceRateRepository.find({
-        where: { userId },
+        where: { userId: requestId },
       })
 
       return socialInsuranceRates

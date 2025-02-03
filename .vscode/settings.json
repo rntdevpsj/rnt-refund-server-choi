@@ -1,0 +1,16 @@
+{
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "eslint.validate": ["typescript", "javascript"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "editor.tabSize": 2,
+  "files.watcherExclude": {
+   "**/.git/objects/**": true,
+   "**/.git/subtree-cache/**": true,
+   "**/node_modules/**": true,
+   "**/dist/**": true,
+   "**/build/**": true,
+   "**/.next/**": true,
+   "**/tmp/**": true
+}
